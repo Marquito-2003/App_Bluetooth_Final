@@ -1,8 +1,11 @@
 package com.example.appbluetoothfinal;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -15,12 +18,19 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import java.io.IOException;
+import java.util.UUID;
+
 public class MainActivity2 extends AppCompatActivity {
 
     private BluetoothAdapter meuBluetoothAdapter;
     private static final int SOLICITA_CONEXAO = 3;
     private static String MAC = null;
-    private Button buttonConexao;
+    private Button buttonConexao, button, button2, button3;
+    BluetoothDevice meuDevice = null;
+    boolean conexao = false;
+    BluetoothSocket meuSocket = null;
+    UUID MEU_UUID = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
 
     // Launcher para ativação do Bluetooth
     private ActivityResultLauncher<Intent> bluetoothResultLauncher =
@@ -73,8 +83,20 @@ public class MainActivity2 extends AppCompatActivity {
 
         // Exemplo de botão para solicitar conexão (abrindo outra Activity)
         buttonConexao.setOnClickListener(v -> {
-            Intent abreLista = new Intent(MainActivity2.this, ListaDispositos.class);
-            startActivityForResult(abreLista, SOLICITA_CONEXAO);
+            if(conexao) {
+                try {
+                    meuSocket.close();
+                    conexao = false;
+                    buttonConexao.setText("Conectar");
+                    Toast.makeText(getApplicationContext(), "O Bluetooth foi desconectado", Toast.LENGTH_LONG).show();
+                }catch(IOException erro){
+                    Toast.makeText(getApplicationContext(), "Ocorreu um erro" + erro, Toast.LENGTH_LONG).show();
+                }
+            }else{
+                Intent abreLista = new Intent(MainActivity2.this, ListaDispositos.class);
+                startActivityForResult(abreLista, SOLICITA_CONEXAO);
+            }
+
         });
     }
 
@@ -91,18 +113,33 @@ public class MainActivity2 extends AppCompatActivity {
         if (!meuBluetoothAdapter.isEnabled()) {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             bluetoothResultLauncher.launch(enableBtIntent);
+
         } else {
             Toast.makeText(getApplicationContext(), "O Bluetooth já está ativado", Toast.LENGTH_LONG).show();
+
         }
     }
 
     // Tratamento do resultado da Activity de conexão (mantido o onActivityResult para simplicidade)
+    @SuppressLint("MissingPermission")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SOLICITA_CONEXAO) {
             if (resultCode == Activity.RESULT_OK && data != null && data.getExtras() != null) {
                 MAC = data.getExtras().getString(ListaDispositos.ENDERECO_MAC);
-                Toast.makeText(getApplicationContext(), "MAC FINAL: " + MAC, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "MAC FINAL: " + MAC, Toast.LENGTH_LONG).show();
+                meuDevice = meuBluetoothAdapter.getRemoteDevice(MAC);
+                try{
+                    meuSocket = meuDevice.createRfcommSocketToServiceRecord(MEU_UUID);
+                    meuSocket.connect();
+                    conexao = true;
+                    buttonConexao.setText("Desconectar");
+                    Toast.makeText(getApplicationContext(), "Você foi conectado com: " + MAC, Toast.LENGTH_LONG).show();
+                }catch(IOException erro){
+                    conexao = false;
+                    Toast.makeText(getApplicationContext(), "Ocorreu um erro: " + erro, Toast.LENGTH_LONG).show();
+                }
+
             } else {
                 Toast.makeText(getApplicationContext(), "Falha ao obter o MAC", Toast.LENGTH_LONG).show();
             }
