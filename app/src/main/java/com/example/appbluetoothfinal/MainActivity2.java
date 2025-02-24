@@ -12,25 +12,40 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 public class MainActivity2 extends AppCompatActivity {
-    private static final int REQUEST_BLUETOOTH_PERMISSION = 2;
 
-    Button button, button2, button3, buttonConexao;
-    BluetoothAdapter meuBluetoothAdapter = null;
+    private BluetoothAdapter meuBluetoothAdapter;
+    private static final int SOLICITA_CONEXAO = 3;
+    private static String MAC = null;
+    private Button buttonConexao;
 
-    // Nova API para tratar resultado da ativação do Bluetooth
-    private final ActivityResultLauncher<Intent> bluetoothResultLauncher =
+    // Launcher para ativação do Bluetooth
+    private ActivityResultLauncher<Intent> bluetoothResultLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
                 if (result.getResultCode() == Activity.RESULT_OK) {
                     Toast.makeText(getApplicationContext(), "O Bluetooth foi ativado", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(getApplicationContext(), "O Bluetooth não foi ativado, o app será fechado", Toast.LENGTH_LONG).show();
+                    finish();
+                }
+            });
+
+    // Launcher para solicitação da permissão (Android 12+)
+    private ActivityResultLauncher<String> permissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                if (isGranted) {
+                    // Se a permissão foi concedida, tenta ativar o Bluetooth
+                    if (!meuBluetoothAdapter.isEnabled()) {
+                        Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                        bluetoothResultLauncher.launch(enableBtIntent);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "O Bluetooth já está ativado", Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Permissão de Bluetooth necessária, o app será fechado", Toast.LENGTH_LONG).show();
                     finish();
                 }
             });
@@ -41,57 +56,57 @@ public class MainActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         buttonConexao = findViewById(R.id.buttonConexao);
-        button = findViewById(R.id.button);
-        button2 = findViewById(R.id.button2);
-        button3 = findViewById(R.id.button3);
 
         meuBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-
         if (meuBluetoothAdapter == null) {
             Toast.makeText(getApplicationContext(), "Seu dispositivo não possui Bluetooth", Toast.LENGTH_LONG).show();
+            finish();
             return;
         }
 
-        // Verifica se o Bluetooth está ativado
+        // Se o Bluetooth não estiver ativado, solicita a ativação (incluindo a verificação de permissão em Android 12+)
         if (!meuBluetoothAdapter.isEnabled()) {
             solicitarBluetooth();
+        } else {
+            Toast.makeText(getApplicationContext(), "O Bluetooth já está ativado", Toast.LENGTH_LONG).show();
         }
-        buttonConexao.setOnClickListener(v -> {
-            // Quando o botão for pressionado, tenta ativar o Bluetooth (caso não esteja ativado)
-            if (meuBluetoothAdapter != null && !meuBluetoothAdapter.isEnabled()) {
-                solicitarBluetooth(); // Chama a função que pede para ativar o Bluetooth
-            } else {
-                Toast.makeText(getApplicationContext(), "Bluetooth já está ativado", Toast.LENGTH_SHORT).show();
-            }
-        });
 
+        // Exemplo de botão para solicitar conexão (abrindo outra Activity)
+        buttonConexao.setOnClickListener(v -> {
+            Intent abreLista = new Intent(MainActivity2.this, ListaDispositos.class);
+            startActivityForResult(abreLista, SOLICITA_CONEXAO);
+        });
     }
 
     private void solicitarBluetooth() {
-        // Verifica permissões apenas no Android 12+
+        // Se estiver em Android 12 (API 31) ou superior, verifica a permissão BLUETOOTH_CONNECT
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.BLUETOOTH_CONNECT}, REQUEST_BLUETOOTH_PERMISSION);
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT)
+                    != PackageManager.PERMISSION_GRANTED) {
+                permissionLauncher.launch(Manifest.permission.BLUETOOTH_CONNECT);
                 return;
             }
         }
-
-        // Solicita ativação do Bluetooth usando a nova API
-        Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-        bluetoothResultLauncher.launch(enableBtIntent);
+        // Se a permissão já estiver concedida (ou não for necessária), solicita a ativação do Bluetooth
+        if (!meuBluetoothAdapter.isEnabled()) {
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            bluetoothResultLauncher.launch(enableBtIntent);
+        } else {
+            Toast.makeText(getApplicationContext(), "O Bluetooth já está ativado", Toast.LENGTH_LONG).show();
+        }
     }
 
-    // Lida com a resposta do usuário para a solicitação de permissão
+    // Tratamento do resultado da Activity de conexão (mantido o onActivityResult para simplicidade)
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == REQUEST_BLUETOOTH_PERMISSION) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                solicitarBluetooth(); // Agora podemos tentar ativar o Bluetooth
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == SOLICITA_CONEXAO) {
+            if (resultCode == Activity.RESULT_OK && data != null && data.getExtras() != null) {
+                MAC = data.getExtras().getString(ListaDispositos.ENDERECO_MAC);
+                Toast.makeText(getApplicationContext(), "MAC FINAL: " + MAC, Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(this, "Permissão de Bluetooth necessária", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Falha ao obter o MAC", Toast.LENGTH_LONG).show();
             }
         }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
