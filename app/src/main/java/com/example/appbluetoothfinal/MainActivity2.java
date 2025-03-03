@@ -163,9 +163,9 @@ public class MainActivity2 extends AppCompatActivity {
                             }
                         }
                         dadosBluetooth.delete(0, dadosBluetooth.length());
+                        }
                     }
                 }
-            }
         };
     }
     private void solicitarBluetooth() {
@@ -217,51 +217,51 @@ public class MainActivity2 extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private class ConnectedThread extends Thread {
-        public final InputStream mmInStream;
-        private final OutputStream mmOutStream;
-        private byte[] mmBuffer;
+        private class ConnectedThread extends Thread {
+            public final InputStream mmInStream;
+            private final OutputStream mmOutStream;
+            private byte[] mmBuffer;
 
-        public ConnectedThread(BluetoothSocket socket) {
+            public ConnectedThread(BluetoothSocket socket) {
 
-            InputStream tmpIn = null;
-            OutputStream tmpOut = null;
+                InputStream tmpIn = null;
+                OutputStream tmpOut = null;
 
-            try {
-                tmpIn = socket.getInputStream();
-                tmpOut = socket.getOutputStream();
-            } catch (IOException e) {
-
-            }
-            mmInStream = tmpIn;
-            mmOutStream = tmpOut;
-        }
-
-        public void run() { //RECEBE OS DADOS DO ARDUINO
-            mmBuffer = new byte[1024];
-            int numBytes; // bytes do read()
-
-            while (true) {
                 try {
-                    // Read from the InputStream
-                    numBytes = mmInStream.read(mmBuffer);
-                    String dadosbt = new String(mmBuffer, 0, numBytes);
-                    handler.obtainMessage( MESSAGE_READ, numBytes, -1,dadosbt).sendToTarget();
+                    tmpIn = socket.getInputStream();
+                    tmpOut = socket.getOutputStream();
+                } catch (IOException e) {
 
-                } catch(IOException e) {
-                    break;
+                }
+                mmInStream = tmpIn;
+                mmOutStream = tmpOut;
+            }
+
+            public void run() { //RECEBE OS DADOS DO ARDUINO
+                mmBuffer = new byte[1024];
+                int numBytes; // bytes do read()
+
+                while (true) {
+                    try {
+                        // Read from the InputStream
+                        numBytes = mmInStream.read(mmBuffer);
+                       String dadosbt = new String(mmBuffer, 0, numBytes);
+                       handler.obtainMessage( MESSAGE_READ, numBytes, -1,dadosbt).sendToTarget();
+
+                    } catch(IOException e) {
+                        break;
+                    }
                 }
             }
-        }
 
-        public void enviar(String dadosenviar) {
-            byte[] msgBuffer= dadosenviar.getBytes();
-            try {
-                mmOutStream.write(msgBuffer);
-            } catch(IOException e) {
+            public void enviar(String dadosenviar) {
+                byte[] msgBuffer= dadosenviar.getBytes();
+                try {
+                    mmOutStream.write(msgBuffer);
+                } catch(IOException e) {
+                }
+            }
+
             }
         }
-
-    }
-}
 
