@@ -2,59 +2,129 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity2"
-    tools:ignore="MissingPrefix">
+    tools:context=".MainActivity2">
 
-  <Button
-      android:id="@+id/button"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="56dp"
-      android:text="Button"
+  <!-- Toolbar -->
+  <androidx.appcompat.widget.Toolbar
+      android:id="@+id/toolbar2"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      android:background="?attr/colorPrimary"
+      android:theme="?attr/actionBarTheme"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      tools:ignore="MissingConstraints" />
+      app:navigationIcon="@android:drawable/ic_menu_close_clear_cancel">
 
+    <!-- Texto centralizado -->
+    <TextView
+        android:id="@+id/toolbarTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ereko"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"/>
+  </androidx.appcompat.widget.Toolbar>
+
+  <!-- Botão BT movido para cima -->
+
+  <!-- LinearLayout para os botões -->
   <Button
       android:id="@+id/buttonConexao"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="4dp"
+      android:layout_width="150dp"
+      android:layout_height="50dp"
+      android:layout_marginTop="72dp"
       android:text="Conectar"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintHorizontal_bias="0.498"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      tools:ignore="MissingConstraints" />
+      app:layout_constraintTop_toBottomOf="@id/toolbar2" />
 
-  <Button
-      android:id="@+id/button2"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="8dp"
-      android:text="Button2"
+
+  <ImageView
+      android:id="@+id/imageView2"
+      android:layout_width="412dp"
+      android:layout_height="163dp"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/button"
-      tools:ignore="MissingConstraints" />
+      app:layout_constraintTop_toBottomOf="@id/buttonConexao"
+      app:layout_constraintVertical_bias="0.989"
+      app:srcCompat="@drawable/logo" />
 
-  <Button
-      android:id="@+id/button3"
+  <LinearLayout
+      android:id="@+id/linearLayoutButtons"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginTop="8dp"
-      android:text="Button3"
+      android:layout_marginTop="92dp"
+      android:gravity="center"
+      android:orientation="vertical"
+      android:paddingHorizontal="32dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/button2"
-      tools:ignore="MissingConstraints" />
+      app:layout_constraintTop_toBottomOf="@id/buttonConexao">
+
+    <!-- Primeira linha de botões -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+      <Button
+          android:id="@+id/button3"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="LED 1" />
+
+      <Space
+          android:layout_width="16dp"
+          android:layout_height="wrap_content" />
+
+      <Button
+          android:id="@+id/button"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="LED 2" />
+    </LinearLayout>
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="16dp" />
+
+    <!-- Segunda linha de botões -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+      <Button
+          android:id="@+id/button2"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="LED 3" />
+
+      <Space
+          android:layout_width="16dp"
+          android:layout_height="wrap_content" />
+
+      <Button
+          android:id="@+id/btn1"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="RANDOM" />
+
+    </LinearLayout>
+
+  </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
