@@ -4,7 +4,7 @@ Controle Bluetooth com Android e Arduino
 
 Este projeto consiste em um aplicativo Android que se comunica com um módulo Bluetooth HC-06 para enviar comandos a um Arduino. Ele permite listar dispositivos Bluetooth, conectar-se ao HC-06 e enviar comandos de controle.
 
-Autores?
+Autores:
 
 •Marco Aurélio Gonçalves Fonseca - 221021509
 
@@ -21,6 +21,7 @@ Autores?
 
 
 📂 ProjetoBluetooth
+
  ┣ 📜 MainActivity2.java         # Envio de comandos via Bluetooth
  
  ┣ 📜 ListaDispositivos.java     # Lista dispositivos Bluetooth e permite conexão
