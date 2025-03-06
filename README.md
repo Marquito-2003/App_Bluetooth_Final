@@ -21,9 +21,13 @@ Autores
 
 📂 ProjetoBluetooth
  ┣ 📜 MainActivity2.java         # Envio de comandos via Bluetooth
+ 
  ┣ 📜 ListaDispositivos.java     # Lista dispositivos Bluetooth e permite conexão
+ 
  ┣ 📜 AndroidManifest.xml       # Permissões e configurações do aplicativo
+ 
  ┣ 📜 activity_main.xml         # Layout da interface do usuário
+ 
  ┗ 📜 README.md                 # Documento explicativo do projeto
 
 
