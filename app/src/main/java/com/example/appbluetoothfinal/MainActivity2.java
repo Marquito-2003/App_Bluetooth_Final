@@ -35,7 +35,7 @@ public class MainActivity2 extends AppCompatActivity {
     private static final int MESSAGE_READ = 4;
     ConnectedThread connectedThread;
     private static String MAC = null;
-    private Button buttonConexao, button, button2, button3;
+    private Button buttonConexao, button, button2, button3, button1;
     BluetoothDevice meuDevice = null;
     boolean conexao = false;
     BluetoothSocket meuSocket = null;
@@ -80,6 +80,7 @@ public class MainActivity2 extends AppCompatActivity {
         button = findViewById(R.id.button);
         button2 = findViewById(R.id.button2);
         button3 = findViewById(R.id.button3);
+        button1 = findViewById(R.id.btn1);
         meuBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (meuBluetoothAdapter == null) {
             Toast.makeText(getApplicationContext(), "Seu dispositivo não possui Bluetooth", Toast.LENGTH_LONG).show();
@@ -131,6 +132,12 @@ public class MainActivity2 extends AppCompatActivity {
                 }
             }
         });
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SegundaTela();
+            }
+        });
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,6 +148,7 @@ public class MainActivity2 extends AppCompatActivity {
                 }
             }
         });
+
         handler = new Handler() {
             @Override
             public void handleMessage(@NonNull Message msg) {
@@ -186,6 +194,11 @@ public class MainActivity2 extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "O Bluetooth já está ativado", Toast.LENGTH_LONG).show();
 
         }
+    }
+
+    private void SegundaTela(){
+        Intent variavel =  new Intent(this, braco_robotico.class);
+        startActivity(variavel);
     }
 
     // Tratamento do resultado da Activity de conexão (mantido o onActivityResult para simplicidade)
