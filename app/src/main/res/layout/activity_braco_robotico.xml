@@ -1,19 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_blue_light"
-    tools:context=".braco_robotico">
+    android:padding="16dp">
 
-    <Button
-        android:id="@+id/button_tela_inicial"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Voltar"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="170dp"
-        tools:layout_editor_absoluteY="377dp" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:orientation="vertical">
+
+        <!-- Seção do MOTOR 1 -->
+        <TextView
+            android:id="@+id/tvMotor1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MOTOR 1 = 131°"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"/>
+
+        <SeekBar
+            android:id="@+id/seekBarMotor1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="180"
+            android:progress="131"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Seção do MOTOR 2 -->
+        <TextView
+            android:id="@+id/tvMotor2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MOTOR 2 = 72°"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"/>
+
+        <SeekBar
+            android:id="@+id/seekBarMotor2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="180"
+            android:progress="72"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Seção da BASE -->
+        <TextView
+            android:id="@+id/tvBase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BASE = 79°"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"/>
+
+        <SeekBar
+            android:id="@+id/seekBarBase"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="180"
+            android:progress="79"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Seção da GARRA -->
+        <TextView
+            android:id="@+id/tvGarra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GARRA = 80°"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"/>
+
+        <SeekBar
+            android:id="@+id/seekBarGarra"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="180"
+            android:progress="80"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Botão para enviar os estados via Bluetooth -->
+        <Button
+            android:id="@+id/btnEnviar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enviar Estados"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Botão para voltar à tela inicial -->
+        <Button
+            android:id="@+id/button_tela_inicial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Voltar" />
+    </LinearLayout>
+
+</ScrollView>

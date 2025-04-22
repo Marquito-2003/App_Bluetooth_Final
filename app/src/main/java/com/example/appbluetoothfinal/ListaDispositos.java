@@ -1,9 +1,8 @@
 package com.example.appbluetoothfinal;
 
-import android.annotation.SuppressLint;
 import android.app.ListActivity;
-import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,45 +10,43 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.Nullable;
-
 import java.util.Set;
 
 public class ListaDispositos extends ListActivity {
-    private BluetoothAdapter meuBluetoothAdapter2 = null;
-
-    static String ENDERECO_MAC = null;
+    public static final String ENDERECO_MAC = "mac_address";
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ArrayAdapter<String> ArrayBluetooth = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
-        meuBluetoothAdapter2 = BluetoothAdapter.getDefaultAdapter();
-        @SuppressLint("MissingPermission") Set<BluetoothDevice> dispositivosPareados = meuBluetoothAdapter2.getBondedDevices();
-        if(dispositivosPareados.size() > 0){
-
-            for(BluetoothDevice dispositivo : dispositivosPareados){
-
-                @SuppressLint("MissingPermission") String nomeBt = dispositivo.getName();
-                String macBt = dispositivo.getAddress();
-                ArrayBluetooth.add(nomeBt + "\n" + macBt);
-            }
+        if (!AppState.getInstance().checkBluetoothConnectPermission(this)) {
+            Toast.makeText(this, "Permissão necessária", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
         }
-        setListAdapter(ArrayBluetooth);
+
+        Set<BluetoothDevice> devices = AppState.getInstance().getPairedDevices(this);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+
+        if (devices != null && !devices.isEmpty()) {
+            for (BluetoothDevice device : devices) {
+                adapter.add(device.getName() + "\n" + device.getAddress());
+            }
+        } else {
+            adapter.add("Nenhum dispositivo pareado");
+        }
+        setListAdapter(adapter);
     }
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        String informacaogeral = ((TextView)v).getText().toString();
-        //Toast.makeText(getApplicationContext(), "Info: " + informacaogeral, Toast.LENGTH_LONG).show();
-        String enderecoMac = informacaogeral.substring(informacaogeral.length() - 17);
-        //Toast.makeText(getApplicationContext(), "mac: " + enderecoMac, Toast.LENGTH_LONG).show();
-        Intent retornaMac = new Intent();
-        retornaMac.putExtra(ENDERECO_MAC, enderecoMac);
-        setResult(RESULT_OK,retornaMac);
+        String deviceInfo = ((TextView) v).getText().toString();
+        String macAddress = deviceInfo.substring(deviceInfo.length() - 17);
+
+        Intent result = new Intent();
+        result.putExtra(ENDERECO_MAC, macAddress);
+        setResult(RESULT_OK, result);
         finish();
     }
 }
