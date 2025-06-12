@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/modulo_main"
+        android:layout_width="293dp"
+        android:layout_height="406dp"
+        android:layout_marginStart="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="189dp"
+            android:layout_height="66dp"
+            android:layout_marginStart="76dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/erekologo" />
+
+        <ImageButton
+            android:id="@+id/imageButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/imageView5"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_sort_by_size" />
+
+        <SeekBar
+            android:id="@+id/speed_bar"
+            android:layout_width="264dp"
+            android:layout_height="26dp"
+            android:layout_marginTop="24dp"
+            android:max="100"
+            android:progress="10"
+            android:progressDrawable="@drawable/thick_scroll"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/controle_container"
+            android:layout_width="239dp"
+            android:layout_height="162dp"
+            android:layout_marginTop="7dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/speed_bar">
+
+            <ToggleButton
+                android:id="@+id/up_button"
+                android:layout_width="69dp"
+                android:layout_height="49dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/border_full"
+                android:checked="false"
+                android:textAlignment="center"
+                android:textOff="ᐃ"
+                android:textOn="ᐃ"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/stop_button"
+                app:layout_constraintEnd_toEndOf="@+id/stop_button"
+                app:layout_constraintStart_toStartOf="@+id/stop_button"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ToggleButton
+                android:id="@+id/down_button"
+                android:layout_width="69dp"
+                android:layout_height="49dp"
+                android:background="@drawable/border_full"
+                android:checked="false"
+                android:textAlignment="center"
+                android:textOff="ᐁ"
+                android:textOn="ᐁ"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/stop_button"
+                app:layout_constraintHorizontal_bias="0.526"
+                app:layout_constraintStart_toStartOf="@+id/stop_button"
+                app:layout_constraintTop_toBottomOf="@+id/stop_button" />
+
+            <ToggleButton
+                android:id="@+id/right_button"
+                android:layout_width="69dp"
+                android:layout_height="49dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="56dp"
+                android:layout_marginBottom="57dp"
+                android:background="@drawable/border_full"
+                android:checked="false"
+                android:textAlignment="center"
+                android:textOff="ᐅ"
+                android:textOn="ᐅ"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/stop_button"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ToggleButton
+                android:id="@+id/left_button"
+                android:layout_width="69dp"
+                android:layout_height="49dp"
+                android:background="@drawable/border_full"
+                android:checked="false"
+                android:textAlignment="center"
+                android:textOff="ᐊ"
+                android:textOn="ᐊ"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/stop_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ToggleButton
+                android:id="@+id/stop_button"
+                android:layout_width="73dp"
+                android:layout_height="49dp"
+                android:background="@drawable/border_full"
+                android:text="ToggleButton"
+                android:textOff="STOP"
+                android:textOn="STOP"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.496"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/connect_button"
+            android:layout_width="244dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="36dp"
+            android:background="@drawable/border_full"
+            android:text="Conectar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/controle_container" />
+
+        <Button
+            android:id="@+id/modulos_button"
+            android:layout_width="244dp"
+            android:layout_height="37dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/border_full"
+            android:text="Módulos"
+            app:layout_constraintStart_toStartOf="@+id/connect_button"
+            app:layout_constraintTop_toBottomOf="@+id/connect_button" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/modulo_garra"
+        android:layout_width="432dp"
+        android:layout_height="412dp"
+        android:layout_marginStart="4dp"
+        app:layout_constraintStart_toEndOf="@+id/modulo_main"
+        app:layout_constraintTop_toTopOf="@+id/modulo_main">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="305dp"
+            android:layout_height="229dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/border"
+            android:outlineProvider="bounds"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.716"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/angulo_0"
+            app:layout_constraintVertical_bias="0.0">
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <SeekBar
+            android:id="@+id/angulo_0"
+            android:layout_width="264dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="116dp"
+            android:layout_marginTop="16dp"
+            android:max="100"
+            android:progress="10"
+            android:progressDrawable="@drawable/thick_scroll"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <SeekBar
+            android:id="@+id/angulo_2"
+            android:layout_width="264dp"
+            android:layout_height="26dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="76dp"
+            android:max="100"
+            android:progress="10"
+            android:progressDrawable="@drawable/thick_scroll"
+            app:layout_constraintEnd_toEndOf="@+id/angulo_0"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+
+        <SeekBar
+            android:id="@+id/angulo_garra"
+            android:layout_width="264dp"
+            android:layout_height="26dp"
+            android:layout_marginTop="28dp"
+            android:max="100"
+            android:progress="10"
+            android:progressDrawable="@drawable/thick_scroll"
+            app:layout_constraintStart_toStartOf="@+id/angulo_2"
+            app:layout_constraintTop_toBottomOf="@+id/angulo_2" />
+
+        <Button
+            android:id="@+id/connect_button2"
+            android:layout_width="77dp"
+            android:layout_height="59dp"
+            android:layout_marginBottom="36dp"
+            android:background="@drawable/border_full"
+            android:text="ENVIAR"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="329dp" />
+
+        <SeekBar
+            android:id="@+id/angulo_1"
+            android:layout_width="264dp"
+            android:layout_height="26dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="200dp"
+            android:max="100"
+            android:progress="10"
+            android:progressDrawable="@drawable/thick_scroll"
+            android:rotation="-90"
+            app:layout_constraintEnd_toEndOf="@+id/angulo_0"
+            app:layout_constraintTop_toTopOf="@+id/constraintLayout2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
