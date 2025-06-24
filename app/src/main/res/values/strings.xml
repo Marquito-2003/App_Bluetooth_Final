@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">App Bluetooth Final</string>
+    <string name="parar">◯</string>
+    <string name="frente">ᐃ</string>
+    <string name="esquerda">ᐊ</string>
+    <string name="direita">ᐅ</string>
+    <string name="re">ᐁ</string>
 </resources>
