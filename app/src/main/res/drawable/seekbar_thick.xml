@@ -1,6 +1,7 @@
-
-
+<?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Background -->
     <item android:id="@android:id/background">
         <shape
             android:shape="rectangle">
@@ -9,7 +10,9 @@
                 android:width="10dp"/>
         </shape>
     </item>
-    <item android:id="@android:id/background">
+
+    <!-- Secondary background - Remover o id repetido -->
+    <item>
         <shape
             android:shape="line">
             <stroke
@@ -18,6 +21,7 @@
         </shape>
     </item>
 
+    <!-- Progress -->
     <item android:id="@android:id/progress">
         <clip>
             <shape
@@ -25,9 +29,8 @@
                 <stroke
                     android:color="@color/MainLight"
                     android:width="@dimen/seek_bar_thickness" />
-
             </shape>
         </clip>
     </item>
 
-</layer-list><?xml version="1.0" encoding="utf-8"?>
+</layer-list>

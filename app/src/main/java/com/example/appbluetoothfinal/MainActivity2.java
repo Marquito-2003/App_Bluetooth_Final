@@ -3,7 +3,6 @@ package com.example.appbluetoothfinal;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.bluetooth.BluetoothAdapter;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,10 +15,17 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 public class MainActivity2 extends AppCompatActivity {
-    private static final int REQUEST_CONNECT = 3;
     private String pendingMacAddress;
+
+    // --- MUDANÇA 1: Criar instâncias dos fragmentos APENAS UMA VEZ ---
+    private final Fragment fragmentBraco = new braco_robotico();
+    private final Fragment fragmentGarra = new garra();
+    private Fragment activeFragment = fragmentBraco; // Guarda a referência do fragmento ativo
 
     private final Handler handler = new Handler(Looper.getMainLooper()) {
         @Override
@@ -30,12 +36,11 @@ public class MainActivity2 extends AppCompatActivity {
         }
     };
 
+    // --- LAUNCHERS MODERNOS ---
     private final ActivityResultLauncher<Intent> enableBtLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
-                if (result.getResultCode() == Activity.RESULT_OK) {
-                    checkBluetoothState();
-                } else {
+                if (result.getResultCode() != Activity.RESULT_OK) {
                     Toast.makeText(this, "Bluetooth necessário", Toast.LENGTH_SHORT).show();
                     finish();
                 }
@@ -55,24 +60,60 @@ public class MainActivity2 extends AppCompatActivity {
             }
     );
 
+    private final ActivityResultLauncher<Intent> connectDeviceLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                    pendingMacAddress = result.getData().getStringExtra(ListaDispositos.ENDERECO_MAC);
+                    if (AppState.getInstance().checkBluetoothConnectPermission(this)) {
+                        attemptConnection(pendingMacAddress);
+                    } else {
+                        requestBluetoothConnectPermission();
+                    }
+                }
+            }
+    );
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_misto);
 
+        // --- Encontra os botões que existem no XML ---
         Button btnConnect = findViewById(R.id.buttonConexao);
-        Button btnAction1 = findViewById(R.id.button);
-        Button btnAction2 = findViewById(R.id.button2);
-        Button btnAction3 = findViewById(R.id.button3);
-        Button btnNext = findViewById(R.id.btn1);
+        Button btnFrente = findViewById(R.id.buttonFrente);
+        Button btnRe = findViewById(R.id.buttonRe);
+        Button btnEsquerda = findViewById(R.id.buttonEsquerda);
+        Button btnDireita = findViewById(R.id.buttonDireita);
 
+        // Botão único para alternar os módulos
+        Button btnAlternarModulo = findViewById(R.id.buttonModulos);
+
+        // --- Configura as ações ---
         btnConnect.setOnClickListener(v -> toggleConnection());
-        btnAction1.setOnClickListener(v -> sendCommand("AÇÃO 1"));
-        btnAction2.setOnClickListener(v -> sendCommand("AÇÃO 2"));
-        btnAction3.setOnClickListener(v -> sendCommand("AÇÃO 3"));
-        btnNext.setOnClickListener(v -> startActivity(new Intent(this, braco_robotico.class)));
+        btnFrente.setOnClickListener(v -> sendCommand("FRENTE"));
+        btnRe.setOnClickListener(v -> sendCommand("RE"));
+        btnEsquerda.setOnClickListener(v -> sendCommand("ESQUERDA"));
+        btnDireita.setOnClickListener(v -> sendCommand("DIREITA"));
 
-        checkBluetoothState();
+        // --- MUDANÇA 2: Configuração inicial dos fragmentos ---
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, fragmentGarra, "2").hide(fragmentGarra)
+                    .add(R.id.fragment_container, fragmentBraco, "1")
+                    .commit();
+            activeFragment = fragmentBraco;
+        }
+
+        // --- MUDANÇA 3: Lógica para alternar com HIDE e SHOW ---
+        btnAlternarModulo.setOnClickListener(v -> {
+            Fragment nextFragment = (activeFragment == fragmentBraco) ? fragmentGarra : fragmentBraco;
+            getSupportFragmentManager().beginTransaction()
+                    .hide(activeFragment)
+                    .show(nextFragment)
+                    .commit();
+            activeFragment = nextFragment;
+        });
     }
 
     @Override
@@ -80,12 +121,7 @@ public class MainActivity2 extends AppCompatActivity {
         super.onResume();
         AppState.getInstance().setCurrentHandler(handler);
         updateConnectionStatus();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        AppState.getInstance().setCurrentHandler(null);
+        checkBluetoothState();
     }
 
     private void toggleConnection() {
@@ -93,7 +129,8 @@ public class MainActivity2 extends AppCompatActivity {
             AppState.getInstance().disconnect();
             updateConnectionStatus();
         } else {
-            startActivityForResult(new Intent(this, ListaDispositos.class), REQUEST_CONNECT);
+            Intent intent = new Intent(this, ListaDispositos.class);
+            connectDeviceLauncher.launch(intent);
         }
     }
 
@@ -106,13 +143,9 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     private void checkBluetoothState() {
-        if (AppState.getInstance().checkBluetoothConnectPermission(this)) {
-            if (!AppState.getInstance().isBluetoothEnabled()) {
-                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                enableBtLauncher.launch(enableBtIntent);
-            }
-        } else {
-            requestBluetoothConnectPermission();
+        if (!AppState.getInstance().isBluetoothEnabled()) {
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            enableBtLauncher.launch(enableBtIntent);
         }
     }
 
@@ -127,19 +160,6 @@ public class MainActivity2 extends AppCompatActivity {
         btnConnect.setText(AppState.getInstance().isConnected() ? "Desconectar" : "Conectar");
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CONNECT && resultCode == Activity.RESULT_OK) {
-            pendingMacAddress = data.getStringExtra(ListaDispositos.ENDERECO_MAC);
-            if (AppState.getInstance().checkBluetoothConnectPermission(this)) {
-                attemptConnection(pendingMacAddress);
-            } else {
-                requestBluetoothConnectPermission();
-            }
-        }
-    }
-
     private void attemptConnection(String mac) {
         if (AppState.getInstance().connect(mac, this)) {
             updateConnectionStatus();
@@ -148,4 +168,6 @@ public class MainActivity2 extends AppCompatActivity {
             Toast.makeText(this, "Falha na conexão", Toast.LENGTH_SHORT).show();
         }
     }
+
+    // O método loadFragment não é mais necessário com a abordagem show/hide
 }

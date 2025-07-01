@@ -1,454 +1,663 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
+
     android:background="@drawable/gradient"
+
     xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
+
     android:layout_height="match_parent">
 
+
+
     <androidx.constraintlayout.widget.Guideline
+
         android:id="@+id/main_vertical_guide"
+
         android:layout_width="wrap_content"
+
         android:layout_height="wrap_content"
+
         android:orientation="vertical"
+
         app:layout_constraintGuide_percent="0.45" />
 
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
+
+
+
 
 
         android:id="@+id/left_layout"
+
         android:layout_width="0dp"
+
         android:layout_height="0dp"
+
         app:layout_constraintBottom_toBottomOf="parent"
+
         app:layout_constraintEnd_toStartOf="@+id/main_vertical_guide"
+
         app:layout_constraintHorizontal_bias="0.0"
+
         app:layout_constraintStart_toStartOf="parent"
+
         app:layout_constraintTop_toTopOf="parent">
 
 
+
+
+
         <androidx.constraintlayout.widget.ConstraintLayout
+
             android:id="@+id/main_layout"
+
             android:layout_width="0dp"
+
             android:layout_height="0dp"
+
             app:layout_constraintBottom_toBottomOf="parent"
+
             app:layout_constraintEnd_toEndOf="parent"
+
             app:layout_constraintStart_toStartOf="parent"
+
             app:layout_constraintTop_toBottomOf="@+id/menu_layout"
+
             app:layout_constraintVertical_bias="0.0">
 
+
+
             <androidx.constraintlayout.widget.Guideline
+
                 android:id="@+id/modules_menu"
+
                 android:layout_width="wrap_content"
+
                 android:layout_height="wrap_content"
+
                 android:orientation="horizontal"
+
                 app:layout_constraintGuide_percent="0.72" />
 
+
+
             <androidx.constraintlayout.widget.ConstraintLayout
+
                 android:id="@+id/choices_menu"
+
                 android:layout_width="0dp"
+
                 android:layout_height="0dp"
+
                 app:layout_constraintBottom_toBottomOf="parent"
+
                 app:layout_constraintEnd_toEndOf="parent"
+
                 app:layout_constraintStart_toStartOf="parent"
+
                 app:layout_constraintTop_toTopOf="@+id/modules_menu">
 
+
+
                 <androidx.constraintlayout.widget.Guideline
+
                     android:id="@+id/guideline4"
+
                     android:layout_width="wrap_content"
+
                     android:layout_height="wrap_content"
+
                     android:orientation="vertical"
+
                     app:layout_constraintGuide_percent="0.15" />
 
+
+
                 <androidx.constraintlayout.widget.Guideline
+
                     android:id="@+id/guideline5"
+
                     android:layout_width="wrap_content"
+
                     android:layout_height="wrap_content"
+
                     android:orientation="vertical"
+
                     app:layout_constraintGuide_percent="0.85" />
 
+
+
                 <Button
+
                     android:id="@+id/buttonConexao"
+
                     android:layout_width="0dp"
+
                     android:layout_height="wrap_content"
+
                     android:text="Conectar"
+
                     app:layout_constraintBottom_toTopOf="@+id/guideline6"
+
                     app:layout_constraintEnd_toStartOf="@+id/guideline5"
+
                     app:layout_constraintStart_toStartOf="@+id/guideline4"
+
                     app:layout_constraintTop_toTopOf="parent" />
 
+
+
                 <androidx.constraintlayout.widget.Guideline
+
                     android:id="@+id/guideline6"
+
                     android:layout_width="wrap_content"
+
                     android:layout_height="wrap_content"
+
                     android:orientation="horizontal"
+
                     app:layout_constraintGuide_percent="0.5" />
 
+
+
                 <Button
+
                     android:id="@+id/buttonModulos"
+
                     android:layout_width="0dp"
+
                     android:layout_height="wrap_content"
+
                     android:text="Módulos"
+
                     app:layout_constraintBottom_toBottomOf="parent"
+
                     app:layout_constraintEnd_toStartOf="@+id/guideline5"
+
                     app:layout_constraintStart_toStartOf="@+id/guideline4"
+
                     app:layout_constraintTop_toTopOf="@+id/guideline6" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
+
                 android:id="@+id/movement_layout"
+
                 android:layout_width="0dp"
+
                 android:layout_height="0dp"
+
                 app:layout_constraintBottom_toTopOf="@+id/modules_menu"
+
                 app:layout_constraintEnd_toEndOf="parent"
+
                 app:layout_constraintStart_toStartOf="parent"
+
                 app:layout_constraintTop_toTopOf="parent">
 
+
+
                 <androidx.constraintlayout.widget.Guideline
+
                     android:id="@+id/guideline7"
+
                     android:layout_width="wrap_content"
+
                     android:layout_height="wrap_content"
+
                     android:orientation="vertical"
+
                     app:layout_constraintGuide_percent="0.35" />
 
+
+
                 <androidx.constraintlayout.widget.Guideline
+
                     android:id="@+id/guideline8"
+
                     android:layout_width="wrap_content"
+
                     android:layout_height="wrap_content"
+
                     android:orientation="vertical"
+
                     app:layout_constraintGuide_percent="0.59" />
 
+
+
                 <androidx.constraintlayout.widget.Guideline
+
                     android:id="@+id/guideline9"
+
                     android:layout_width="wrap_content"
+
                     android:layout_height="wrap_content"
+
                     android:orientation="horizontal"
+
                     app:layout_constraintGuide_percent="0.33" />
 
+
+
                 <androidx.constraintlayout.widget.Guideline
+
                     android:id="@+id/guideline10"
+
                     android:layout_width="wrap_content"
+
                     android:layout_height="wrap_content"
+
                     android:orientation="horizontal"
+
                     app:layout_constraintGuide_percent="0.66" />
 
+
+
                 <androidx.constraintlayout.widget.Guideline
+
                     android:id="@+id/guideline11"
+
                     android:layout_width="wrap_content"
+
                     android:layout_height="wrap_content"
+
                     android:orientation="vertical"
+
                     app:layout_constraintGuide_percent="0.14" />
 
+
+
                 <androidx.constraintlayout.widget.Guideline
+
                     android:id="@+id/guideline12"
+
                     android:layout_width="wrap_content"
+
                     android:layout_height="wrap_content"
+
                     android:orientation="vertical"
+
                     app:layout_constraintGuide_percent="0.83" />
 
+
+
                 <androidx.constraintlayout.widget.ConstraintLayout
+
                     android:id="@+id/constraint_parar"
+
                     android:layout_width="0dp"
+
                     android:layout_height="0dp"
+
                     app:layout_constraintBottom_toTopOf="@+id/guideline10"
+
                     app:layout_constraintDimensionRatio="1:1"
+
                     app:layout_constraintEnd_toStartOf="@+id/guideline8"
+
                     app:layout_constraintHorizontal_bias="0.5"
+
                     app:layout_constraintStart_toStartOf="@+id/guideline7"
+
                     app:layout_constraintTop_toTopOf="@+id/guideline9"
+
                     app:layout_constraintVertical_bias="0.0">
 
+
+
                     <Button
+
                         android:id="@+id/buttonPARE"
+
                         android:layout_width="0dp"
+
                         android:layout_height="0dp"
+
                         android:text="@string/parar"
+
                         android:textSize="20sp"
+
                         app:layout_constraintBottom_toBottomOf="parent"
+
                         app:layout_constraintEnd_toEndOf="parent"
+
                         app:layout_constraintStart_toStartOf="parent"
+
                         app:layout_constraintTop_toTopOf="parent" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+
                 <androidx.constraintlayout.widget.ConstraintLayout
+
                     android:id="@+id/constraint_re"
+
                     android:layout_width="0dp"
+
                     android:layout_height="0dp"
+
                     app:layout_constraintBottom_toBottomOf="parent"
+
                     app:layout_constraintDimensionRatio="1:1"
+
                     app:layout_constraintEnd_toStartOf="@+id/guideline8"
+
                     app:layout_constraintHorizontal_bias="0.5"
+
                     app:layout_constraintStart_toStartOf="@+id/guideline7"
+
                     app:layout_constraintTop_toTopOf="@+id/guideline10"
+
                     app:layout_constraintVertical_bias="1.0">
 
+
+
                     <Button
+
                         android:id="@+id/buttonRe"
+
                         android:layout_width="0dp"
+
                         android:layout_height="0dp"
+
                         android:text="@string/re"
+
                         android:textSize="34sp"
+
                         app:layout_constraintBottom_toBottomOf="parent"
+
                         app:layout_constraintEnd_toEndOf="parent"
+
                         app:layout_constraintStart_toStartOf="parent"
+
                         app:layout_constraintTop_toTopOf="parent" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+
+
+
                 <androidx.constraintlayout.widget.ConstraintLayout
+
                     android:id="@+id/constraint_direita"
+
                     android:layout_width="0dp"
+
                     android:layout_height="0dp"
+
                     app:layout_constraintBottom_toTopOf="@+id/guideline10"
+
                     app:layout_constraintDimensionRatio="1:1"
+
                     app:layout_constraintEnd_toStartOf="@+id/guideline12"
+
                     app:layout_constraintHorizontal_bias="0.5"
+
                     app:layout_constraintStart_toStartOf="@+id/guideline8"
+
                     app:layout_constraintTop_toTopOf="@+id/guideline9"
+
                     app:layout_constraintVertical_bias="1.0">
 
+
+
                     <Button
+
                         android:id="@+id/buttonDireita"
+
                         android:layout_width="0dp"
+
                         android:layout_height="0dp"
+
                         android:text="@string/direita"
+
                         android:textSize="34sp"
+
                         app:layout_constraintBottom_toBottomOf="parent"
+
                         app:layout_constraintEnd_toEndOf="parent"
+
                         app:layout_constraintStart_toStartOf="parent"
+
                         app:layout_constraintTop_toTopOf="parent" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+
                 <androidx.constraintlayout.widget.ConstraintLayout
+
                     android:id="@+id/constraint_esquerda"
+
                     android:layout_width="0dp"
+
                     android:layout_height="0dp"
+
                     app:layout_constraintBottom_toTopOf="@+id/guideline10"
+
                     app:layout_constraintDimensionRatio="1:1"
+
                     app:layout_constraintEnd_toStartOf="@+id/guideline7"
+
                     app:layout_constraintHorizontal_bias="0.5"
+
                     app:layout_constraintStart_toStartOf="@+id/guideline11"
+
                     app:layout_constraintTop_toTopOf="@+id/guideline9"
+
                     app:layout_constraintVertical_bias="0.51">
 
+
+
                     <Button
+
                         android:id="@+id/buttonEsquerda"
+
                         android:layout_width="0dp"
+
                         android:layout_height="0dp"
+
                         android:text="@string/esquerda"
+
                         android:textSize="34sp"
+
                         app:layout_constraintBottom_toBottomOf="parent"
+
                         app:layout_constraintEnd_toEndOf="parent"
+
                         app:layout_constraintHorizontal_bias="0.0"
+
                         app:layout_constraintStart_toStartOf="parent"
+
                         app:layout_constraintTop_toTopOf="parent"
+
                         app:layout_constraintVertical_bias="0.0" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+
                     android:id="@+id/constraint_frente"
+
                     android:layout_width="0dp"
+
                     android:layout_height="0dp"
+
                     android:layout_marginBottom="1dp"
+
                     app:layout_constraintBottom_toTopOf="@+id/constraint_parar"
+
                     app:layout_constraintDimensionRatio="1:1"
+
                     app:layout_constraintEnd_toStartOf="@+id/guideline8"
+
                     app:layout_constraintStart_toStartOf="@+id/guideline7"
+
                     app:layout_constraintTop_toTopOf="parent">
 
+
+
                     <Button
+
                         android:id="@+id/buttonFrente"
+
                         android:layout_width="0dp"
+
                         android:layout_height="0dp"
+
                         android:text="@string/frente"
+
                         android:textSize="34sp"
+
                         app:layout_constraintBottom_toBottomOf="parent"
+
                         app:layout_constraintEnd_toEndOf="parent"
+
                         app:layout_constraintStart_toStartOf="parent"
+
                         app:layout_constraintTop_toTopOf="parent" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+
         <androidx.constraintlayout.widget.Guideline
+
             android:id="@+id/guideline_menu"
+
             android:layout_width="wrap_content"
+
             android:layout_height="wrap_content"
+
             android:orientation="horizontal"
+
             app:layout_constraintGuide_percent="0.15" />
 
+
+
         <androidx.constraintlayout.widget.ConstraintLayout
+
             android:id="@+id/menu_layout"
+
             android:layout_width="0dp"
+
             android:layout_height="0dp"
+
             app:layout_constraintBottom_toTopOf="@+id/guideline_menu"
+
             app:layout_constraintEnd_toEndOf="parent"
+
             app:layout_constraintStart_toStartOf="parent"
+
             app:layout_constraintTop_toTopOf="parent">
 
+
+
             <androidx.constraintlayout.widget.Guideline
+
                 android:id="@+id/menu_guide"
+
                 android:layout_width="wrap_content"
+
                 android:layout_height="wrap_content"
+
                 android:orientation="vertical"
+
                 app:layout_constraintGuide_percent="0.23" />
 
+
+
             <ImageView
+
                 android:id="@+id/imageView"
+
                 android:layout_width="0dp"
+
                 android:layout_height="wrap_content"
+
                 app:layout_constraintBottom_toBottomOf="parent"
+
                 app:layout_constraintEnd_toEndOf="parent"
+
                 app:layout_constraintStart_toStartOf="@+id/menu_guide"
+
                 app:layout_constraintTop_toTopOf="parent"
+
                 app:srcCompat="@drawable/ereko_logo" />
 
+
+
             <Button
+
                 android:id="@+id/menu_btn"
+
                 android:layout_width="0dp"
+
                 android:layout_height="0dp"
+
                 android:layout_marginStart="10dp"
+
                 android:layout_marginEnd="10dp"
+
                 android:text="≡"
+
                 android:textSize="40sp"
+
                 app:barrierMargin="2dp"
+
                 app:layout_constraintBottom_toBottomOf="parent"
+
                 app:layout_constraintEnd_toStartOf="@+id/imageView"
+
                 app:layout_constraintHorizontal_bias="0.0"
+
                 app:layout_constraintStart_toStartOf="parent"
+
                 app:layout_constraintTop_toTopOf="parent"
+
                 app:layout_constraintVertical_bias="0.0" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/module_layout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@id/left_layout"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.69" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.2" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/imagem_garra_layout"
+
+        <!-- PAINEL DA DIREITA (DINÂMICO) - CORREÇÃO PRINCIPAL -->
+        <!-- Este FrameLayout é o contêiner onde os fragmentos serão carregados. -->
+        <FrameLayout
+            android:id="@+id/fragment_container"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@drawable/rounded_stroke"
-            app:layout_constraintBottom_toTopOf="@+id/guideline14"
-            app:layout_constraintDimensionRatio="1.75:1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.68"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline15"
-            app:layout_constraintVertical_bias="1.0">
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline16"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.71" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline15"
-            app:layout_constraintDimensionRatio="1.5:1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.51"
-            app:layout_constraintStart_toStartOf="@+id/guideline16"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
-
-            <Button
-                android:id="@+id/buttonEnviar"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:text="ENVIO"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <SeekBar
-            android:id="@+id/SeekBarMotor1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/seekbar_thick"
-            android:thumb="@drawable/seek_thumb_thick"
-            app:layout_constraintBottom_toTopOf="@+id/imagem_garra_layout"
-            app:layout_constraintEnd_toStartOf="@+id/guideline16"
-            app:layout_constraintHorizontal_bias="0.35"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.473" />
-
-        <SeekBar
-            android:id="@+id/seekBarBase"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:background="@drawable/seekbar_thick"
-            android:thumb="@drawable/seek_thumb_thick"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline16"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline14"
-            app:layout_constraintVertical_bias="0.292" />
-
-        <SeekBar
-            android:id="@+id/seekBarGarra"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:background="@drawable/seekbar_thick"
-            android:thumb="@drawable/seek_thumb_thick"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline16"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/seekBarBase"
-            app:layout_constraintVertical_bias="0.49" />
-
-        <SeekBar
-            android:id="@+id/seekBarMotor2"
-            android:layout_width="180dp"
-            android:layout_height="27dp"
-            android:background="@drawable/seekbar_thick"
-            android:rotation="-90"
-            android:thumb="@drawable/seek_thumb_thick"
-            app:layout_constraintBottom_toTopOf="@+id/guideline14"
-            app:layout_constraintEnd_toStartOf="@+id/imagem_garra_layout"
-            app:layout_constraintHorizontal_bias="0.54"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline15"
-            app:layout_constraintVertical_bias="0.51" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/main_vertical_guide"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
