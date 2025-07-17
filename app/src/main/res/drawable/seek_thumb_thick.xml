@@ -1,8 +1,11 @@
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="oval">
-    <size
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+        <size
         android:height="@dimen/seek_bar_thumb_size"
         android:width="@dimen/seek_bar_thumb_size"
         />
     <solid android:color="@color/MainLight"/>
-</shape>
+    </shape>
+    </item>
+</layer-list>
