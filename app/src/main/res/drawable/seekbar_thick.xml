@@ -1,36 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <!-- Background -->
     <item android:id="@android:id/background">
-        <shape
-            android:shape="rectangle">
-            <stroke
-                android:color="@color/MainLight"
-                android:width="10dp"/>
+        <shape  android:shape="rectangle">
+            <corners android:radius="@dimen/corner_border"/>
+            <solid android:color="@color/BgLight"/>
         </shape>
     </item>
+    <!-- Background -->
 
-    <!-- Secondary background - Remover o id repetido -->
-    <item>
-        <shape
-            android:shape="line">
-            <stroke
-                android:color="@color/BgLight"
-                android:width="@dimen/seek_bar_thickness"/>
+    <item android:id="@android:id/secondaryProgress">
+        <shape  android:shape="rectangle">
+            <corners android:radius="@dimen/corner_border"/>
+            <solid android:color="@color/BgLight"/>
         </shape>
     </item>
 
     <!-- Progress -->
     <item android:id="@android:id/progress">
         <clip>
-            <shape
-                android:shape="line">
-                <stroke
-                    android:color="@color/MainLight"
-                    android:width="@dimen/seek_bar_thickness" />
-            </shape>
+        <shape  android:shape="rectangle">
+            <corners android:radius="@dimen/corner_border"/>
+            <solid android:color="@color/MainLight"/>
+        </shape>
         </clip>
     </item>
+
 
 </layer-list>

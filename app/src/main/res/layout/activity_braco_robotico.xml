@@ -57,7 +57,7 @@
             android:layout_marginBottom="4dp"/>
 
         <SeekBar
-            android:id="@+id/seekBarBase"
+            android:id="@+id/seekBarMotor2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:max="180"
@@ -75,7 +75,7 @@
             android:layout_marginBottom="4dp"/>
 
         <SeekBar
-            android:id="@+id/seekBarGarra"
+            android:id="@+id/seekBarBase"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:max="180"

@@ -45,8 +45,8 @@ public class braco_robotico extends Fragment {
         // 2. Usa a 'view' para encontrar os componentes da interface
         SeekBar sb1 = view.findViewById(R.id.seekBarMotor1);
         SeekBar sb2 = view.findViewById(R.id.seekBarMotor2);
-        SeekBar sbBase = view.findViewById(R.id.seekBarBase);
-        SeekBar sbG = view.findViewById(R.id.seekBarGarra);
+        SeekBar sbBase = view.findViewById(R.id.seekBarMotor2);
+        SeekBar sbG = view.findViewById(R.id.seekBarBase);
 
         // A lógica de setup não muda, mas passamos a 'view' para a função
         setupSeekBar(view, sb1, R.id.tvMotor1, "MOTOR 1");
@@ -101,8 +101,8 @@ public class braco_robotico extends Fragment {
                 "M1:%d;M2:%d;B:%d;G:%d;",
                 ((SeekBar) view.findViewById(R.id.seekBarMotor1)).getProgress(),
                 ((SeekBar) view.findViewById(R.id.seekBarMotor2)).getProgress(),
-                ((SeekBar) view.findViewById(R.id.seekBarBase)).getProgress(),
-                ((SeekBar) view.findViewById(R.id.seekBarGarra)).getProgress());
+                ((SeekBar) view.findViewById(R.id.seekBarMotor2)).getProgress(),
+                ((SeekBar) view.findViewById(R.id.seekBarBase)).getProgress());
 
         if (AppState.getInstance().isConnected()) {
             AppState.getInstance().sendData(command);

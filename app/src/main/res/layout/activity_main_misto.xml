@@ -13,7 +13,6 @@
     android:layout_height="match_parent">
 
 
-
     <androidx.constraintlayout.widget.Guideline
 
         android:id="@+id/main_vertical_guide"
@@ -133,7 +132,6 @@
                     app:layout_constraintGuide_percent="0.85" />
 
 
-
                 <Button
 
                     android:id="@+id/buttonConexao"
@@ -142,6 +140,8 @@
 
                     android:layout_height="wrap_content"
 
+                    android:layout_marginBottom="8dp"
+
                     android:text="Conectar"
 
                     app:layout_constraintBottom_toTopOf="@+id/guideline6"
@@ -149,7 +149,6 @@
                     app:layout_constraintEnd_toStartOf="@+id/guideline5"
 
                     app:layout_constraintStart_toStartOf="@+id/guideline4"
-
                     app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -167,7 +166,6 @@
                     app:layout_constraintGuide_percent="0.5" />
 
 
-
                 <Button
 
                     android:id="@+id/buttonModulos"
@@ -176,14 +174,17 @@
 
                     android:layout_height="wrap_content"
 
+                    android:layout_marginBottom="8dp"
+
+                    android:backgroundTint="#CCCCCC"
+
+                    android:clickable="false"
+
                     android:text="Módulos"
-
                     app:layout_constraintBottom_toBottomOf="parent"
-
                     app:layout_constraintEnd_toStartOf="@+id/guideline5"
-
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/guideline4"
-
                     app:layout_constraintTop_toTopOf="@+id/guideline6" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -587,7 +588,6 @@
                 app:layout_constraintGuide_percent="0.23" />
 
 
-
             <ImageView
 
                 android:id="@+id/imageView"
@@ -600,12 +600,12 @@
 
                 app:layout_constraintEnd_toEndOf="parent"
 
+                app:layout_constraintHorizontal_bias="0.25"
+
                 app:layout_constraintStart_toStartOf="@+id/menu_guide"
 
                 app:layout_constraintTop_toTopOf="parent"
-
                 app:srcCompat="@drawable/ereko_logo" />
-
 
 
             <Button
@@ -620,6 +620,10 @@
 
                 android:layout_marginEnd="10dp"
 
+                android:backgroundTint="#CCCCCC"
+
+                android:clickable="false"
+
                 android:text="≡"
 
                 android:textSize="40sp"
@@ -633,9 +637,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
 
                 app:layout_constraintStart_toStartOf="parent"
-
                 app:layout_constraintTop_toTopOf="parent"
-
                 app:layout_constraintVertical_bias="0.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

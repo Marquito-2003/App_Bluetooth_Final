@@ -69,8 +69,8 @@ public class garra extends Fragment {
         // Encontra todas as SeekBars no momento do clique
         SeekBar sbMotor1 = view.findViewById(R.id.seekBarMotor1);
         SeekBar sbMotor2 = view.findViewById(R.id.seekBarMotor2);
-        SeekBar sbBase = view.findViewById(R.id.seekBarBase);
-        SeekBar sbGarra = view.findViewById(R.id.seekBarGarra);
+        SeekBar sbBase = view.findViewById(R.id.seekBarMotor2);
+        SeekBar sbGarra = view.findViewById(R.id.seekBarBase);
 
         // Cria o comando completo com os 4 valores
         String command = String.format(Locale.US,
