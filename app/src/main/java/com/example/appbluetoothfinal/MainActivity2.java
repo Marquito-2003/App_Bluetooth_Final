@@ -170,5 +170,5 @@ public class MainActivity2 extends AppCompatActivity {
         }
     }
 
-    // O método loadFragment não é mais necessário com a abordagem show/hide
+    // O método loadFragment não é mais necessário com a abordagem show/hide as
 }
