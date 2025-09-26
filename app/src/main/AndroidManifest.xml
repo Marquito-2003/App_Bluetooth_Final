@@ -24,7 +24,7 @@
         <activity
             android:name=".MainActivity2"
             android:exported="true"
-            android:screenOrientation="landscape"> <!-- 👈 ALTERAÇÃO APLICADA AQUI -->
+            android:screenOrientation="portrait"> <!-- 👈 ALTERAÇÃO APLICADA AQUI -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

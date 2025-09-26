@@ -15,33 +15,37 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.appcompat.widget.Toolbar;
+
+// Removidas as importações de Fragment, pois não são mais usadas
+// import androidx.fragment.app.Fragment;
+// import androidx.fragment.app.FragmentManager;
+// import androidx.fragment.app.FragmentTransaction;
 
 public class MainActivity2 extends AppCompatActivity {
     private String pendingMacAddress;
 
-    // --- MUDANÇA 1: Criar instâncias dos fragmentos APENAS UMA VEZ ---
-    private final Fragment fragmentBraco = new braco_robotico();
-    private final Fragment fragmentGarra = new garra();
-    private Fragment activeFragment = fragmentBraco; // Guarda a referência do fragmento ativo
+    // --- MUDANÇA: Variáveis de Fragment removidas ---
+    // private final Fragment fragmentBraco = new braco_robotico();
+    // private final Fragment fragmentGarra = new garra();
+    // private Fragment activeFragment = fragmentBraco;
 
     private final Handler handler = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(@NonNull Message msg) {
             if (msg.what == AppState.MESSAGE_READ) {
                 String receivedData = (String) msg.obj;
+                // Faça algo com os dados recebidos, se necessário
             }
         }
     };
 
-    // --- LAUNCHERS MODERNOS ---
+    // --- LAUNCHERS MODERNOS (sem alteração) ---
     private final ActivityResultLauncher<Intent> enableBtLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() != Activity.RESULT_OK) {
-                    Toast.makeText(this, "Bluetooth necessário", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Bluetooth é necessário para usar o app.", Toast.LENGTH_SHORT).show();
                     finish();
                 }
             }
@@ -55,7 +59,7 @@ public class MainActivity2 extends AppCompatActivity {
                         attemptConnection(pendingMacAddress);
                     }
                 } else {
-                    Toast.makeText(this, "Permissão necessária", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Permissão de conexão Bluetooth é necessária.", Toast.LENGTH_SHORT).show();
                 }
             }
     );
@@ -77,44 +81,36 @@ public class MainActivity2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
-        setContentView(R.layout.activity_main_misto);
 
-        // --- Encontra os botões que existem no XML ---
+        // --- MUDANÇA: Define o layout XML correto ---
+        setContentView(R.layout.activity_main);
+
+
+        // --- MUDANÇA: Encontra os botões que existem no novo XML ---
         Button btnConnect = findViewById(R.id.buttonConexao);
-        Button btnFrente = findViewById(R.id.buttonFrente);
-        Button btnRe = findViewById(R.id.buttonRe);
-        Button btnEsquerda = findViewById(R.id.buttonEsquerda);
-        Button btnDireita = findViewById(R.id.buttonDireita);
+        Button btnLed1 = findViewById(R.id.button3);
+        Button btnLed2 = findViewById(R.id.button);
+        Button btnLed3 = findViewById(R.id.button2);
+        Button btnBraco = findViewById(R.id.btn1);
 
-        // Botão único para alternar os módulos
-        Button btnAlternarModulo = findViewById(R.id.buttonModulos);
-
-        // --- Configura as ações ---
+        // --- MUDANÇA: Configura as ações para os novos botões ---
         btnConnect.setOnClickListener(v -> toggleConnection());
-        btnFrente.setOnClickListener(v -> sendCommand("FRENTE"));
-        btnRe.setOnClickListener(v -> sendCommand("RE"));
-        btnEsquerda.setOnClickListener(v -> sendCommand("ESQUERDA"));
-        btnDireita.setOnClickListener(v -> sendCommand("DIREITA"));
 
-        // --- MUDANÇA 2: Configuração inicial dos fragmentos ---
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, fragmentGarra, "2").hide(fragmentGarra)
-                    .add(R.id.fragment_container, fragmentBraco, "1")
-                    .commit();
-            activeFragment = fragmentBraco;
-        }
+        // Ações para os botões de LED
+        btnLed1.setOnClickListener(v -> sendCommand("AÇÃO 1")); // Comando pode ser "L1_ON", "1", etc.
+        btnLed2.setOnClickListener(v -> sendCommand("AÇÃO 2"));
+        btnLed3.setOnClickListener(v -> sendCommand("AÇÃO 3"));
 
-        // --- MUDANÇA 3: Lógica para alternar com HIDE e SHOW ---
-        btnAlternarModulo.setOnClickListener(v -> {
-            Fragment nextFragment = (activeFragment == fragmentBraco) ? fragmentGarra : fragmentBraco;
-            getSupportFragmentManager().beginTransaction()
-                    .hide(activeFragment)
-                    .show(nextFragment)
-                    .commit();
-            activeFragment = nextFragment;
+        // Ação para o botão do Braço Robótico
+        // Exemplo: Abrir uma nova Activity para controlar o braço
+        btnBraco.setOnClickListener(v -> {
+            // Crie uma nova Activity chamada 'BracoRoboticoActivity' para esta funcionalidade
+            // Intent intent = new Intent(MainActivity2.this, BracoRoboticoActivity.class);
+            // startActivity(intent);
+            Toast.makeText(this, "Abrir tela do Braço Robótico", Toast.LENGTH_SHORT).show();
         });
+
+        // --- MUDANÇA: Toda a lógica de inicialização de fragmentos foi removida ---
     }
 
     @Override
@@ -129,6 +125,7 @@ public class MainActivity2 extends AppCompatActivity {
         if (AppState.getInstance().isConnected()) {
             AppState.getInstance().disconnect();
             updateConnectionStatus();
+            Toast.makeText(this, "Desconectado.", Toast.LENGTH_SHORT).show();
         } else {
             Intent intent = new Intent(this, ListaDispositos.class);
             connectDeviceLauncher.launch(intent);
@@ -138,8 +135,9 @@ public class MainActivity2 extends AppCompatActivity {
     private void sendCommand(String command) {
         if (AppState.getInstance().isConnected()) {
             AppState.getInstance().sendData(command);
+            Toast.makeText(this, "Comando enviado: " + command, Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Não conectado", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Não conectado. Conecte-se a um dispositivo primeiro.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -164,11 +162,11 @@ public class MainActivity2 extends AppCompatActivity {
     private void attemptConnection(String mac) {
         if (AppState.getInstance().connect(mac, this)) {
             updateConnectionStatus();
-            Toast.makeText(this, "Conectado: " + mac, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Conectado com sucesso!", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Falha na conexão", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Falha na conexão com o dispositivo.", Toast.LENGTH_SHORT).show();
         }
     }
 
-    // O método loadFragment não é mais necessário com a abordagem show/hide as
+    // O método loadFragment não é mais necessário e foi removido.
 }
